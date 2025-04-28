@@ -70,7 +70,13 @@ router.put("/remove-from-favourite", authenticationToken, async (req, res) => {
 router.get("/get-favourite-books", authenticationToken, async (req, res) => {
     try {
         const { user_id } = req.headers
-        const user = await User.findById({ _id: user_id }).populate("favourites")
+        const user = await User.findById({ _id: user_id }).populate({
+            path: "favourites",
+            populate: {
+                path: "category",
+                select: "name"
+            }
+        })
 
         const favourites = user.favourites
 

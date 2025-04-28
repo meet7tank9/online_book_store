@@ -22,6 +22,10 @@ const Navbar = () => {
       link: "/all-books"
     },
     {
+      title: "Category",
+      link: "/category"
+    },
+    {
       title: "Cart",
       link: "/cart"
     },
@@ -39,15 +43,15 @@ const Navbar = () => {
   const role = useSelector((state) => state.auth.role)
 
   if (isLoggedIn === false) {
-    links.splice(2, 3)
+    links.splice(2, 4)
   }
 
   if (isLoggedIn && role === "user") {
-    links.splice(4, 1)
+    links.splice(5, 1)
   }
 
   if (isLoggedIn && role === "admin") {
-    links.splice(2, 2)
+    links.splice(3, 2)
   }
   const onLogout = () => {
     setMobileNav(mobileNav === "hidden" ? "block" : "hidden")
@@ -95,12 +99,12 @@ const Navbar = () => {
           {
             !isLoggedIn ? <>
               <div className='hidden md:flex gap-4'>
-                <Link to="/login" className='px-4 py-1 border border-blue-500 rounded hover:bg-white hover:text-blue-500 transition-all duration-300'>Login</Link>
-                <Link to="/signup" className='px-4 py-1 rounded bg-blue-500 hover:bg-white hover:text-blue-500 transition-all duration-300'>Register</Link>
+                <Link to="/login" className='cursor-pointer px-4 py-1 border border-blue-500 rounded hover:bg-white hover:text-blue-500 transition-all duration-300'>Login</Link>
+                <Link to="/signup" className='cursor-pointer px-4 py-1 rounded bg-blue-500 hover:bg-white hover:text-blue-500 transition-all duration-300'>Register</Link>
               </div>
             </> :
               <div className='hidden md:flex gap-4'>
-                <div className='px-4 py-1 border border-blue-500 rounded hover:bg-white hover:text-blue-500 transition-all duration-300'
+                <div className='cursor-pointer px-4 py-1 border border-blue-500 rounded hover:bg-white hover:text-blue-500 transition-all duration-300'
                   onClick={() => {
                     dispatch(authActions.logout())
                     dispatch(authActions.changeRole("user"))
