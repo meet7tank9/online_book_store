@@ -22,6 +22,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import Rating from './components/Profile/Rating'
 import BookRating from './components/BookRating/BookRating'
+import AddCategory from './pages/AddCategory'
 
 const App = () => {
 
@@ -52,6 +53,7 @@ const App = () => {
           {role == "user" ? <Route index element={<Favourites />} /> : <Route index element={<AllOrders />} />}
           {role == "admin" && <Route path='/profile/all-users' element={<AllUsers />} />}
           {role == "admin" && <Route path='/profile/add-book' element={<AddBook />} />}
+          {role == "admin" && <Route path='/profile/add-category' element={<AddCategory />} />}
           <Route path='/profile/order-history' element={<UserOrderHistory />} />
           <Route path='/profile/settings' element={<Settings />} />
         </Route>

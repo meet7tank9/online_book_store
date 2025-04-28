@@ -96,10 +96,6 @@ const ViewBookDetails = () => {
         }
     }
 
-    const handleUpdateBook = async () => {
-
-    }
-
     return (
         <>
             {data && (
@@ -109,10 +105,10 @@ const ViewBookDetails = () => {
                         {
                             isLoggedIn == true && userRole === "user" && (
                                 <div className='flex flex-col gap-4'>
-                                    <button className='bg-white rounded-full text-3xl p-3 text-red-500' onClick={handleFavourite}>
+                                    <button className='bg-white rounded-full text-3xl p-3 text-red-500 hover:scale-105 transition-all duration-150' onClick={handleFavourite}>
                                         <FaHeart />
                                     </button>
-                                    <button className='bg-white rounded-full text-3xl p-3 text-gray-600' onClick={handleAddToCart}>
+                                    <button className='bg-white rounded-full text-3xl p-3 text-gray-600 hover:scale-105 transition-all duration-150' onClick={handleAddToCart}>
                                         <FaCartArrowDown />
                                     </button>
                                 </div>
@@ -121,10 +117,10 @@ const ViewBookDetails = () => {
                         {
                             isLoggedIn == true && userRole === "admin" && (
                                 <div className='flex flex-col gap-4'>
-                                    <Link to={`/update-book/${id}`} className='bg-white rounded-full text-3xl p-3 text-green-600' onClick={handleUpdateBook}>
+                                    <Link to={`/update-book/${id}`} className='bg-white rounded-full text-3xl p-3 text-green-600 hover:scale-105 transition-all duration-150'>
                                         <FaEdit />
                                     </Link>
-                                    <button className='bg-white rounded-full text-3xl p-3 text-red-600' onClick={handleDeleteBook}>
+                                    <button className='bg-white rounded-full text-3xl p-3 text-red-600 hover:scale-105 transition-all duration-150' onClick={handleDeleteBook}>
                                         <MdDeleteForever />
                                     </button>
                                 </div>
@@ -132,10 +128,15 @@ const ViewBookDetails = () => {
                         }
                     </div>
                     <div className='p-4 lg:w-3/6 w-full flex flex-col gap-2'>
-                        <h1 className='text-4xl text-zinc-300 font-semibold'>{data?.title}</h1>
-                        <p className='mt-2 text-md text-zinc-500 font-semibold'>By {data?.author}</p>
+                        <div className='flex flex-col gap-2'>
+                            <h1 className='text-4xl text-zinc-300 font-semibold'>{data?.title}</h1>
+                            <p className='mt-2 text-md text-zinc-500 font-semibold'>By {data?.author}</p>
+                            <Link to={`/all-books?filterByCategory=${data?.category?.name}`} className='w-min' >
+                                <p className='mt-2 text-md w-full text-zinc-300 text-md font-semibold border-[1.7px] rounded-md border-yellow-400 p-2 flex items-center justify-center cursor-pointer hover:bg-zinc-800 transition-all duration-200'>{data?.category?.name}</p>
+                            </Link>
+                        </div>
                         <div className='mt-2 text-md text-zinc-300 font-semibold flex items-center justify-start gap-4'>
-                            <div className='flex items-center'>
+                            <div className='flex items-center gap-2'>
                                 <Rating className=''
                                     initialValue={avgRating}
                                     size={30}
@@ -144,7 +145,7 @@ const ViewBookDetails = () => {
                                     SVGstyle={{ display: 'inline-block' }}
                                     style={{ display: 'flex', gap: '8px' }}
                                 />
-                                <div className='text-md'>{avgRating} </div>
+                                <div className='text-lg'>{!avgRating ? 0 : avgRating} </div>
                             </div>
                             <div>
                                 <div className='font-sm'>
@@ -157,7 +158,7 @@ const ViewBookDetails = () => {
                         <p className='mt-2 text-2xl text-green-400 font-semibold'>Price: &#8377; {data?.price}</p>
                         <p className='mt-4 text-md text-zinc-300 font-semibold flex items-center justify-start'><GrLanguage className='me-3' /> {data?.language}</p>
                         <p className='mt-4 text-md text-zinc-300 font-semibold'>{data?.description}</p>
-                        <div className='cursor-pointer flex items-center justify-center gap-4 text-2xl p-3 bg-yellow-400 rounded-lg w-4/6 md:w-3/6 mt-6' onClick={handleAddToCart}>
+                        <div className='cursor-pointer flex items-center justify-center gap-4 text-2xl p-3 bg-yellow-400 rounded-lg w-4/6 md:w-3/6 mt-6 border border-zinc-800 hover:border hover:border-yellow-400 hover:bg-zinc-800 hover:text-yellow-400 transition-all duration-300' onClick={handleAddToCart}>
                             <FaCartArrowDown />
                             <button>Add To Cart</button>
                         </div>

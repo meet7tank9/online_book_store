@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
@@ -9,6 +9,7 @@ const AddBook = () => {
   }
 
   const navigate = useNavigate()
+  const [category, setCategory] = useState([])
 
   const [data, setData] = useState({
     title: "",
@@ -16,15 +17,37 @@ const AddBook = () => {
     url: "",
     price: "",
     language: "",
-    description: ""
+    description: "",
+    category: ""
   })
 
   const handleOnChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
   }
 
+  useEffect(() => {
+    const getCategory = async () => {
+
+      const responseCategory = await axios.get(`http://localhost:3000/api/v1/category/get-category`)
+      setCategory(responseCategory.data.data);
+
+    }
+
+    getCategory()
+  }, [])
+
   const handleSubmitBook = async (e) => {
     e.preventDefault()
+
+    setData(() => ({
+      title: "",
+      author: "",
+      url: "",
+      price: "",
+      language: "",
+      description: "",
+      category: ""
+    }))
     try {
       if (data.title == "" ||
         data.author == "" ||
@@ -45,6 +68,10 @@ const AddBook = () => {
     }
   }
 
+  const handleOnClick = (e) => {
+    console.log(e);
+  }
+
   return (
     <>
       <h1 className='text-3xl text-gray-400 mb-6'>Add Book</h1>
@@ -57,6 +84,17 @@ const AddBook = () => {
           <div className='p-3'>
             <label htmlFor="" className='text-zinc-400 text-lg ps-1'>Author</label>
             <input type="text" name="author" placeholder='Enter book author' value={data.author} id="" className='outline-none w-full mt-2 bg-zinc-900 text-zinc-100 p-2 rounded border border-gray-500' onChange={handleOnChange} />
+          </div>
+          <div className='p-3'>
+            <label htmlFor="" className='text-zinc-400 text-lg ps-1'>Category</label>
+            <select name="category" value={data.category} onChange={handleOnChange} className='outline-none w-full mt-2 bg-zinc-900 text-zinc-100 p-2 rounded border border-gray-500'>
+              <option value="">Select a Category</option>
+              {
+                category.map((item, i) => {
+                  return <option key={i} value={item?._id}>{item?.name}</option>
+                })
+              }
+            </select>
           </div>
           <div className='p-3'>
             <label htmlFor="" className='text-zinc-400 text-lg ps-1'>Image url</label>

@@ -6,7 +6,7 @@ const { authenticationToken } = require("../middleware/authUser.middleware.js")
 router.post("/add-book", authenticationToken, async (req, res) => {
     try {
         const { id } = req.headers
-        const { title, url, author, price, language, description } = req.body
+        const { title, url, author, price, language, description, category } = req.body
 
         const user = await User.findById({ _id: id })
 
@@ -21,7 +21,7 @@ router.post("/add-book", authenticationToken, async (req, res) => {
             }
 
             const newBook = await Book.create({
-                title, url, author, price, language, description
+                title, url, author, price, language, description, category
             })
 
             const book = await Book.findById({ _id: newBook._id })
@@ -43,7 +43,7 @@ router.post("/add-book", authenticationToken, async (req, res) => {
         }
 
     } catch (error) {
-        // console.log(error);
+        console.log(error);
         return res.status(500).json({
             message: "server error while adding new book"
         })
@@ -53,7 +53,7 @@ router.post("/add-book", authenticationToken, async (req, res) => {
 router.put("/update-book", authenticationToken, async (req, res) => {
     try {
         const { book_id } = req.headers
-        const { title, url, author, price, language, description } = req.body
+        const { title, url, author, price, language, description, category } = req.body
 
         if (req.user.role === "admin") {
             const bookExists = await Book.findOne({ _id: book_id })
@@ -68,7 +68,8 @@ router.put("/update-book", authenticationToken, async (req, res) => {
                 author: author,
                 price: price,
                 language: language,
-                description: description
+                description: description,
+                category: category
             }, { new: true })
 
             if (!updatedBook) {
@@ -138,7 +139,7 @@ router.delete("/delete-book", authenticationToken, async (req, res) => {
 router.get("/get-books", async (req, res) => {
     try {
 
-        const books = await Book.find().sort({ createdAt: -1 })
+        const books = await Book.find().sort({ createdAt: -1 }).populate("category")
 
         if (!books) {
             return res.status(400).json(
@@ -163,7 +164,7 @@ router.get("/get-books", async (req, res) => {
 router.get("/get-recent-books", async (req, res) => {
     try {
 
-        const books = await Book.find().sort({ createdAt: -1 }).limit(4)
+        const books = await Book.find().sort({ createdAt: -1 }).populate("category").limit(4)
 
         if (!books) {
             return res.status(400).json(
@@ -189,7 +190,7 @@ router.get("/get-book-by-id/:id", async (req, res) => {
     try {
         const { id } = req.params
 
-        const book = await Book.findById(id)
+        const book = await Book.findById(id).populate("category")
 
         if (!book) {
             return res.status(400).json(

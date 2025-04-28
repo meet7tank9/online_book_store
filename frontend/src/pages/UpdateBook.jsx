@@ -6,6 +6,7 @@ const UpdateBook = () => {
   const { id } = useParams()
 
   const navigate = useNavigate()
+  const [category, setCategory] = useState([])
 
   const [data, setData] = useState({
     title: "",
@@ -13,8 +14,19 @@ const UpdateBook = () => {
     url: "",
     price: "",
     language: "",
-    description: ""
+    description: "",
+    category: ""
   })
+
+  useEffect(() => {
+    const getCategory = async () => {
+
+      const responseCategory = await axios.get(`http://localhost:3000/api/v1/category/get-category`)
+      setCategory(responseCategory.data.data);
+    }
+
+    getCategory()
+  }, [])
 
   const headers = {
     id: localStorage.getItem("id"),
@@ -37,7 +49,8 @@ const UpdateBook = () => {
           url: response.data.data.url,
           price: response.data.data.price,
           language: response.data.data.language,
-          description: response.data.data.description
+          description: response.data.data.description,
+          category: response.data.data.category
         })
 
       } catch (error) {
@@ -74,6 +87,17 @@ const UpdateBook = () => {
               <div className='p-3'>
                 <label htmlFor="" className='text-zinc-400 text-lg ps-1'>Author</label>
                 <input type="text" name="author" placeholder='Enter book author' value={data.author} id="" className='outline-none w-full mt-2 bg-zinc-900 text-zinc-100 p-2 rounded border border-gray-500' onChange={handleOnChange} />
+              </div>
+              <div className='p-3'>
+                <label htmlFor="" className='text-zinc-400 text-lg ps-1'>Category</label>
+                <select name="category" value={data.category} onChange={handleOnChange} className='outline-none w-full mt-2 bg-zinc-900 text-zinc-100 p-2 rounded border border-gray-500'>
+                  <option value="">Select a Category</option>
+                  {
+                    category.map((item, i) => {
+                      return <option key={i} value={item?._id}>{item?.name}</option>
+                    })
+                  }
+                </select>
               </div>
               <div className='p-3'>
                 <label htmlFor="" className='text-zinc-400 text-lg ps-1'>Image url</label>

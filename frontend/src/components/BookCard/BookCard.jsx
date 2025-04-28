@@ -4,7 +4,7 @@ import axios from "axios"
 
 const BookCard = ({ data, favourite }) => {
   const shortDescription = data.description.length > 100 ? data.description.substr(0, 99) + "..." : data.description
-  const shortTitle = data.title.length > 30 ? data.title.substr(0, 29) + "..." : data.title
+  const shortTitle = data.title.length > 27 ? data.title.substr(0, 26) + "..." : data.title
 
   const headers = {
     user_id: localStorage.getItem("id"),
@@ -33,9 +33,12 @@ const BookCard = ({ data, favourite }) => {
             <img src={data.url} alt="" className='h-[30vh] rounded ' />
           </div>
           <h2 className='mt-4 text-xl text-zinc-200 font-semibold'>{shortTitle}</h2>
-          <p className='mt-2 text-md text-zinc-500 font-semibold'>By {data.author}</p>
+          <div className='flex justify-between items-center'>
+            <p className='mt-2 text-md text-zinc-500 font-semibold'>By {data.author}</p>
+            <p className='mt-2 text-sm text-zinc-400 font-semibold border border-yellow-500 p-[3px] px-2 rounded-sm'>{data?.category?.name}</p>
+          </div>
           <p className='mt-4 text-md text-zinc-300 font-semibold'>{shortDescription}</p>
-          <p className='mt-2 text-xl text-zinc-400 font-semibold'>&#8377; {data.price}</p>
+          <p className='mt-2 text-xl  font-semibold text-green-400'> &#8377; {data.price}</p>
         </Link>
 
         {favourite && <button className='bg-yellow-400 text-large font-semibold px-4 py-2 rounded-lg border border-yellow-500 mt-2 text-gray-700' onClick={handleRemoveFromFavourite}>Remove From Favourite</button>

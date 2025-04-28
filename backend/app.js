@@ -8,6 +8,7 @@ const favourite = require("./routes/favourite.routes.js")
 const cart = require("./routes/cart.routes.js")
 const order = require("./routes/order.routes.js")
 const rating = require("./routes/rating.routes.js")
+const category = require("./routes/category.routes.js")
 
 
 const app = express()
@@ -27,6 +28,7 @@ app.use("/api/v1/favourite", favourite)
 app.use("/api/v1/cart", cart)
 app.use("/api/v1/order", order)
 app.use("/api/v1/rating", rating)
+app.use("/api/v1/category", category)
     
 const port = process.env.PORT || 3000
 app.listen(port, () => {

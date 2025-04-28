@@ -4,6 +4,7 @@ import BookCard from '../components/BookCard/BookCard'
 import axios from "axios"
 import { useLocation, useParams } from 'react-router-dom'
 import FilterByPrice from './FilterByPrice'
+import FilterByCategory from './FilterByCategory'
 
 const AllBooks = () => {
   const [data, setData] = useState()
@@ -12,11 +13,13 @@ const AllBooks = () => {
 
   const query = new URLSearchParams(location.search).get("search") || ""
   const filterByPrice = new URLSearchParams(location.search).get("filterByPrice") || ""
+  const filterByCategory = new URLSearchParams(location.search).get("filterByCategory") || ""
 
   useEffect(() => {
     const getBooks = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/api/v1/book/get-books`)
+        console.log(response.data.data);
         setData(response.data.data);
         setFilteredData(response.data.data);
       } catch (error) {
@@ -55,20 +58,27 @@ const AllBooks = () => {
 
       const priceArray = filterByPrice.split("above")
       start = priceArray[0]
-      
+
       const books = data?.filter(book => Number(book.price) >= Number(start))
-      
+
       setFilteredData(books)
 
+    }
+    else if (!filterByCategory == false) {
+
+      const books = data?.filter(book => book.category?.name == filterByCategory)
+      setFilteredData(books)
+      
     }
     else {
       setFilteredData(data)
     }
-  }, [filterByPrice, data])
+  }, [filterByPrice, filterByCategory, data])
 
   return (
     <div className='bg-zinc-900 h-auto px-12 py-8 min-h-[84vh]'>
       <h4 className='text-yellow-100 font-semibold text-3xl'>All Books</h4>
+      <FilterByCategory />
       {
         !data && <div className='flex items-center justify-center my-8'>
           <Loader />

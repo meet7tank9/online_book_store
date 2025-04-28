@@ -26,6 +26,10 @@ const BookSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        category: {
+            type: mongoose.Types.ObjectId,
+            ref: "category"
+        }
     },
     {
         timestamps: true
