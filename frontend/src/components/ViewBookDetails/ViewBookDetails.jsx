@@ -158,7 +158,7 @@ const ViewBookDetails = () => {
                         <p className='mt-2 text-2xl text-green-400 font-semibold'>Price: &#8377; {data?.price}</p>
                         <p className='mt-4 text-md text-zinc-300 font-semibold flex items-center justify-start'><GrLanguage className='me-3' /> {data?.language}</p>
                         <p className='mt-4 text-md text-zinc-300 font-semibold'>{data?.description}</p>
-                        <div className='cursor-pointer flex items-center justify-center gap-4 text-2xl p-3 bg-yellow-400 rounded-lg w-4/6 md:w-3/6 mt-6 border border-zinc-800 hover:border hover:border-yellow-400 hover:bg-zinc-800 hover:text-yellow-400 transition-all duration-300' onClick={handleAddToCart}>
+                        <div className='cursor-pointer flex items-center justify-center gap-4 text-2xl p-3 bg-yellow-500 rounded-lg w-4/6 md:w-3/6 mt-6 border border-zinc-800 hover:border hover:border-yellow-400 hover:bg-zinc-800 hover:text-yellow-400 transition-all duration-300' onClick={handleAddToCart}>
                             <FaCartArrowDown />
                             <button>Add To Cart</button>
                         </div>

@@ -43,7 +43,7 @@ router.get("/get-rating", async (req, res) => {
     try {
         const { book_id } = req.headers
 
-        const ratingRecords = await Rating.find({ book: book_id }).populate("user")
+        const ratingRecords = await Rating.find({ book: book_id }).populate("user").sort({ createdAt: -1 })
 
         if (!ratingRecords) {
             return res.status(400).json({

@@ -23,6 +23,7 @@ import ResetPassword from './pages/ResetPassword'
 import Rating from './components/Profile/Rating'
 import BookRating from './components/BookRating/BookRating'
 import AddCategory from './pages/AddCategory'
+import AllCategory from './pages/AllCategory'
 
 const App = () => {
 
@@ -58,6 +59,7 @@ const App = () => {
           <Route path='/profile/settings' element={<Settings />} />
         </Route>
         <Route path='/cart' element={<Cart />} />
+        <Route path='/all-category' element={<AllCategory />} />
         <Route path='/update-book/:id' element={<UpdateBook />} />
         <Route path='/view-book-details/:id' element={<ViewBookDetails />} />
         <Route path='/rating/:id' element={<Rating />} />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaGripLines } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../../store/auth';
@@ -8,6 +8,7 @@ import logo from "../../assets/book_heaven.png"
 const Navbar = () => {
   const [mobileNav, setMobileNav] = useState("hidden")
   const [query, setQuery] = useState("")
+  const location = useLocation()
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -23,7 +24,7 @@ const Navbar = () => {
     },
     {
       title: "Category",
-      link: "/category"
+      link: "/all-category"
     },
     {
       title: "Cart",
@@ -74,14 +75,16 @@ const Navbar = () => {
           <img src={logo} alt="logo" className='h-10 me-4 ms-4 rounded ' />
           <h1 className='text-2xl font-semibold'>BookHeaven</h1>
         </Link>
+
         <div className='w-2/6'>
-          <form action="" onSubmit={(e)=>{
+          <form action="" onSubmit={(e) => {
             e.preventDefault()
             navigate(`/all-books?search=${query}`);
           }}>
             <input type="search" name="" id="" placeholder='Search book...' className='p-2 ps-4 rounded-3xl outline-none w-[100%] bg-zinc-700 text-white' onChange={handleOnChange} value={query} />
           </form>
         </div>
+
         <div className='nav-links-bookheaven block md:flex gap-4 items-center'>
           <div className='hidden md:flex gap-4'>
             {
@@ -90,12 +93,13 @@ const Navbar = () => {
                   {item.title == 'Profile' || item.title == 'Admin Profile' ? (
                     <Link to={item.link} className='px-4 py-1 border border-blue-500 rounded hover:bg-white hover:text-blue-500 transition-all duration-300'>{item.title == "Profile" ? 'Profile' : "Admin Profile"}</Link>
                   ) : (
-                    <Link className='hover:text-blue-500 transition-all duration-300' key={i} to={item.link}>{item.title}</Link>
+                    <Link className={`hover:text-blue-500 transition-all duration-300 ${location.pathname == item.link && `text-yellow-400`}`} key={i} to={item.link}>{item.title}</Link>
                   )}
                 </div>
               ))
             }
           </div>
+
           {
             !isLoggedIn ? <>
               <div className='hidden md:flex gap-4'>
@@ -115,6 +119,7 @@ const Navbar = () => {
                   }}>Logout</div>
               </div>
           }
+
           <button className='md:hidden text-white text-2xl hover:text-zinc-400'>
             <FaGripLines
               onClick={() => setMobileNav(mobileNav === "hidden" ? "block" : "hidden")}
@@ -129,7 +134,7 @@ const Navbar = () => {
         {
           links.map((item, i) => {
             return <Link
-              className={` ${mobileNav}text-white text-3xl font-semibold hover:text-blue-500 transition-all duration-300`}
+              className={` ${mobileNav}text-white text-3xl font-semibold hover:text-blue-500 transition-all duration-300 ${location.pathname == item.link && `text-yellow-400`}`}
               key={i}
               to={item.link}
               onClick={() => setMobileNav(mobileNav === "hidden" ? "block" : "hidden")}>
