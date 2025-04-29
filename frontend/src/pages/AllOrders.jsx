@@ -128,11 +128,14 @@ const AllOrders = () => {
                 <h1 className='text-start'>{item.user?.username}</h1>
               </div>
               <div className='w-[16%]flex flex-col justify-centers items-center'>
-                <div>{item.status}</div>
+                <div className={`${item.status == 'Order Placed' && 'text-zinc-300'}
+                ${item.status == 'Out For Delivery' && 'text-yellow-600'}
+                ${item.status == 'Delivered' && 'text-green-600'}
+                ${item.status == 'Cancelled' && 'text-red-600'}`}>{item.status}</div>
                 <select className='text-center bg-transparent outline-none text-yellow-400 bg-zinc-700' onChange={(event) => handleDropdown(event, i)}>
                   <option value="Order Placed" className='text-gray-600 bg-zinc-900 font-semibold outline-none'>Order Placed</option>
                   <option value="Out For Delivery" className='text-yellow-600 bg-zinc-900 font-semibold'>Out For Delivery</option>
-                  <option value="Delivered" className='text-green-700 bg-zinc-900 font-semibold outline-none'>Delivered</option>
+                  <option value="Delivered" className='text-green-600 bg-zinc-900 font-semibold outline-none'>Delivered</option>
                   <option value="Cancelled" className='text-red-700 bg-zinc-900 font-semibold'>Cancelled</option>
                 </select>
               </div>

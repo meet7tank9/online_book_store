@@ -115,7 +115,7 @@ const AddBook = () => {
             <textarea name="description" rows={7} placeholder='Enter book description' value={data.description} id="" className='outline-none w-full mt-2 bg-zinc-900 text-zinc-100 p-2 rounded border border-gray-500' onChange={handleOnChange} />
           </div>
           <div className='p-3'>
-            <input type="submit" value="Add Book" className='outline-none w-[20%] mt-2 bg-yellow-500 rounded-md font-semibold text-black p-2' />
+            <input type="submit" value="Add Book" className='outline-none border border-yellow-500 w-[20%] mt-2 bg-yellow-500 rounded-md font-semibold text-black p-2 cursor-pointer hover:text-yellow-500 hover:border hover:border-yellow-500 hover:bg-zinc-900 transition-all duration-300' />
           </div>
         </form>
       </div>

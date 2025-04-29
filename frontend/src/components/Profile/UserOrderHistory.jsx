@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import { Link } from 'react-router-dom'
 import Loader from '../Loader/Loader'
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 const UserOrderHistory = () => {
   const [orderHistory, setOrderHistory] = useState()
-  
+
   const headers = {
     user_id: localStorage.getItem("id"),
     authorization: `Bearer ${localStorage.getItem('token')}`
@@ -41,14 +42,14 @@ const UserOrderHistory = () => {
           <div className='flex justify-between items-center'>
             <h1 className='text-3xl text-gray-400 mb-6'>Order History</h1>
           </div>
-          <div className='mt-4 bg-zinc-800 w-full rounded py-2 px-4 flex gap-2'>
+          <div className='mt-4 bg-zinc-800 w-full rounded py-2 px-4 flex gap-2 text-yellow-400'>
             <div className='w-[3%]'>
               <h1 className='text-center'>Sr.</h1>
             </div>
             <div className='w-[22%]'>
               <h1 className='text-center'>Books</h1>
             </div>
-            <div className='w-[45%]'>
+            <div className='w-[30%]'>
               <h1 className='text-center'>Description</h1>
             </div>
             <div className='w-[9%]'>
@@ -68,6 +69,8 @@ const UserOrderHistory = () => {
             </div>
           </div>
 
+          <div className='border'></div>
+
           {orderHistory.map((item, i) => {
             return <div className='bg-zinc-800 w-full rounded py-2 px-4 flex gap-4 hover:bg-zinc-700 hover:cursor-pointer'>
               <div className='w-[3%]'>
@@ -78,7 +81,7 @@ const UserOrderHistory = () => {
                   <h1 className='text-center'>{item.book?.title}</h1>
                 </Link>
               </div>
-              <div className='w-[45%]'>
+              <div className='w-[30%]'>
                 <h1 className='text-center'>{item.book?.description?.slice(0, 20)}...</h1>
               </div>
               <div className='w-[9%]'>
@@ -94,13 +97,22 @@ const UserOrderHistory = () => {
                   ) : item.status == "Cancelled" ? (
                     <div className='text-red-600'>{item.status}</div>
                   ) : item.status == "Delivered" ? (
-                    <div className='text-green-700'>{item.status}</div>
+                    <div className='text-green-600'>{item.status}</div>
                   ) : <div className='text-yellow-600'>{item.status}</div>
                   }
                 </h1>
               </div>
               <div className='w-[16%]'>
-                <h1 className='text-center'><Link to={`/rating/${item.book?._id}`} >Give Rating</Link></h1>
+                <h1 className='text-center text-blue-400'>
+                  {
+                    item?.status == "Delivered"
+                      ? <Link to={`/rating/${item.book?._id}`} className='flex items-center justify-center gap-1' >
+                        <FaExternalLinkAlt />
+                        <div>Ratings</div>
+                      </Link>
+                      : ""
+                  }
+                </h1>
               </div>
               <div className='w-none md:w-[5%] hidden md:block'>
                 <h1 className='text-center'>COD</h1>
