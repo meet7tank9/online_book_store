@@ -24,6 +24,8 @@ import Rating from './components/Profile/Rating'
 import BookRating from './components/BookRating/BookRating'
 import AddCategory from './pages/AddCategory'
 import AllCategory from './pages/AllCategory'
+import LineChart from './components/Charts/LineChart'
+import ChartAnalysis from './pages/ChartAnalysis'
 
 const App = () => {
 
@@ -47,10 +49,11 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/profile' element={<Profile />} >
-          {role == "user" ? <Route index element={<Favourites />} /> : <Route index element={<AllOrders />} />}
+          {role == "user" ? <Route index element={<Favourites />} /> : <Route index element={<ChartAnalysis />} />}
           {role == "admin" && <Route path='/profile/all-users' element={<AllUsers />} />}
           {role == "admin" && <Route path='/profile/add-book' element={<AddBook />} />}
           {role == "admin" && <Route path='/profile/add-category' element={<AddCategory />} />}
+          {role == "admin" && <Route path='/profile/all-orders' element={<AllOrders />} />}
           <Route path='/profile/order-history' element={<UserOrderHistory />} />
           <Route path='/profile/settings' element={<Settings />} />
         </Route>

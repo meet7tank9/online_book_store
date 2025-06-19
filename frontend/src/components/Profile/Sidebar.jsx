@@ -42,6 +42,11 @@ const Sidebar = ({ data }) => {
           <Link
             to="/profile"
             className="text-zinc-300 font-semibold w-full py-2 mt-1 text-center hover:bg-zinc-900 rounded transition-all duration-300">
+            Analysis
+          </Link>
+          <Link
+            to="/profile/all-orders"
+            className="text-zinc-300 font-semibold w-full py-2 mt-1 text-center hover:bg-zinc-900 rounded transition-all duration-300">
             All Orders
           </Link>
           <Link
