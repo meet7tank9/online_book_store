@@ -10,6 +10,9 @@ const OrderSchema = new mongoose.Schema(
             type: mongoose.Types.ObjectId,
             ref: "books"
         },
+        quantity: {
+            type: Number
+        },
         status: {
             type: String,
             default: "Order Placed",

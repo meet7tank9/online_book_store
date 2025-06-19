@@ -11,7 +11,8 @@ const RecentlyAdded = () => {
       try {
         const response = await axios.get(`http://localhost:3000/api/v1/book/get-recent-books`)
         setData(response.data.data);
-        // console.log(response.data.data);
+
+        console.log(response.data.data);
       } catch (error) {
         console.log(error);
       }

@@ -16,7 +16,7 @@ const UserOrderHistory = () => {
     const getOrderHistory = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/api/v1/order/get-order-history`, { headers })
-
+        console.log(response.data.data);
         setOrderHistory(response.data.data)
       } catch (error) {
         console.log(error);
@@ -42,18 +42,21 @@ const UserOrderHistory = () => {
           <div className='flex justify-between items-center'>
             <h1 className='text-3xl text-gray-400 mb-6'>Order History</h1>
           </div>
-          <div className='mt-4 bg-zinc-800 w-full rounded py-2 px-4 flex gap-2 text-yellow-400'>
+          <div className='mt-4 bg-zinc-800 w-full rounded py-2 px-4 flex gap-2 text-yellow-400 border border-zinc-500'>
             <div className='w-[3%]'>
               <h1 className='text-center'>Sr.</h1>
             </div>
             <div className='w-[22%]'>
               <h1 className='text-center'>Books</h1>
             </div>
-            <div className='w-[30%]'>
+            <div className='w-[20%]'>
               <h1 className='text-center'>Description</h1>
             </div>
+            <div className='w-[10%]'>
+              <h1 className='text-center'>Quantity</h1>
+            </div>
             <div className='w-[9%]'>
-              <h1 className='text-center'>Price</h1>
+              <h1 className='text-center'>Price/Book</h1>
             </div>
             <div className='w-[16%]'>
               <h1 className='text-center'>Order Date</h1>
@@ -64,12 +67,14 @@ const UserOrderHistory = () => {
             <div className='w-[16%]'>
               <h1 className='text-center'>Rating</h1>
             </div>
+            <div className='w-[9%]'>
+              <h1 className='text-center'>Total</h1>
+            </div>
             <div className='w-none md:w-[5%] hidden md:block'>
               <h1 className='text-center'>Mode</h1>
             </div>
           </div>
 
-          <div className='border'></div>
 
           {orderHistory.map((item, i) => {
             return <div className='bg-zinc-800 w-full rounded py-2 px-4 flex gap-4 hover:bg-zinc-700 hover:cursor-pointer'>
@@ -81,8 +86,11 @@ const UserOrderHistory = () => {
                   <h1 className='text-center'>{item.book?.title}</h1>
                 </Link>
               </div>
-              <div className='w-[30%]'>
+              <div className='w-[20%]'>
                 <h1 className='text-center'>{item.book?.description?.slice(0, 20)}...</h1>
+              </div>
+              <div className='w-[10%]'>
+                <h1 className='text-center'>{item.quantity ?? 1}</h1>
               </div>
               <div className='w-[9%]'>
                 <h1 className='text-center'>{item.book?.price}</h1>
@@ -113,6 +121,9 @@ const UserOrderHistory = () => {
                       : ""
                   }
                 </h1>
+              </div>
+              <div className='w-[9%]'>
+                <h1 className='text-center'>{item.book?.price * (item.quantity ?? 1)}</h1>
               </div>
               <div className='w-none md:w-[5%] hidden md:block'>
                 <h1 className='text-center'>COD</h1>

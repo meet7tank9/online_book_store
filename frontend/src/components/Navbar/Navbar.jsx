@@ -54,6 +54,7 @@ const Navbar = () => {
   if (isLoggedIn && role === "admin") {
     links.splice(3, 2)
   }
+  
   const onLogout = () => {
     setMobileNav(mobileNav === "hidden" ? "block" : "hidden")
     dispatch(authActions.logout())

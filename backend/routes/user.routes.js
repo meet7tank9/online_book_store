@@ -55,7 +55,7 @@ router.post("/register", async (req, res) => {
 
         if (!createdUser) {
             return res.status(500).json({
-                message: "registration failed"
+                message: "Registration failed"
             })
         }
 
@@ -109,7 +109,8 @@ router.post("/login", async (req, res) => {
                 username: userExist.username,
                 email: userExist.email
             },
-            process.env.JWT_SECRET)
+            process.env.JWT_SECRET
+        )
 
         return res.status(200).json({
             data: userExist,
@@ -236,7 +237,7 @@ router.post("/forgot-password", async (req, res) => {
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            message: "server error while updating user information"
+            message: "server error while sending OTP."
         })
     }
 })

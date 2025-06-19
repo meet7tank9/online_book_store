@@ -31,11 +31,7 @@ const App = () => {
   const role = useSelector((state) => state.auth.role)
 
   useEffect(() => {
-    if (
-      localStorage.getItem("id") &&
-      localStorage.getItem("token") &&
-      localStorage.getItem("role")
-    ) {
+    if (localStorage.getItem("id") && localStorage.getItem("token") && localStorage.getItem("role")) {
       dispatch(authActions.login())
       dispatch(authActions.changeRole(localStorage.getItem("role")))
     }

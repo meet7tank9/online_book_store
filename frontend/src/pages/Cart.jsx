@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import Loader from '../components/Loader/Loader'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
+import { CiCirclePlus, CiCircleMinus, CiParking1 } from "react-icons/ci";
 
 const Cart = () => {
   const [data, setData] = useState()
   const [total, setTotal] = useState(0)
+  const [totalBooks, setTotalBooks] = useState(0)
   const navigate = useNavigate()
 
   const headers = {
@@ -17,7 +19,12 @@ const Cart = () => {
     const getCart = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/api/v1/cart/get-cart`, { headers })
-        setData(response.data.data);
+        const dataArray = response.data.data
+        const dataAfterQuantityAdded = dataArray.map((item) => {
+          return { ...item, quantity: 1 }
+        })
+        setData(dataAfterQuantityAdded);
+
       } catch (error) {
         console.log(error);
       }
@@ -27,16 +34,23 @@ const Cart = () => {
 
   useEffect(() => {
     if (data && data.length > 0) {
+      // count total
       let total = 0
-      data.map((item) => {
-        total += item.price
+      data.forEach((item) => {
+        total += Number(item.quantity * item.price)
       })
 
+      // count quantity
+      let quantity = 0;
+      data.forEach((item) => {
+        quantity += Number(item.quantity)
+      })
+
+      setTotalBooks(quantity)
+
       setTotal(total)
-      total = 0
     }
-    console.log("running");
-  }, [data, total])
+  }, [data])
 
   const deleteItem = async (book_id) => {
     try {
@@ -59,7 +73,40 @@ const Cart = () => {
     } catch (error) {
       console.log(error);
     }
+  }
 
+  const handleIncrement = async (i) => {
+
+    const updatedData = data.map((item, index) => {
+
+      if (index == i) {
+        if (item.quantity > 4) {
+          alert("Maximum five books can be purchase")
+          return item
+        }
+        let calculatedQty = item.quantity + 1
+        item = { ...item, quantity: calculatedQty }
+      }
+      return item
+    })
+    setData(updatedData)
+  }
+
+  const handleDecrement = (i) => {
+    const updatedData = data.map((item, index) => {
+
+      if (index == i) {
+
+        if (item.quantity < 2) {
+          alert("Minimum one book needs to be purchase")
+          return item
+        }
+        let calculatedQty = item.quantity - 1
+        item = { ...item, quantity: calculatedQty }
+      }
+      return item
+    })
+    setData(updatedData)
   }
 
   return (
@@ -96,6 +143,12 @@ const Cart = () => {
                       {item.description.substr(0, 100)}...
                     </p>
                   </div>
+
+                  <div className='text-zinc-300 text-xl flex items-center gap-2'>
+                    <div className=''><CiCirclePlus className='text-4xl cursor-pointer' onClick={() => handleIncrement(i)} /></div>
+                    <div className='text-3xl'>{item.quantity}</div>
+                    <div className=''><CiCircleMinus className='text-4xl cursor-pointer' onClick={() => handleDecrement(i)} /></div>
+                  </div>
                   <div className='flex mt-4 w-full md:w-auto items-center justify-between'>
                     <h2 className='text-zinc-300 text-3xl font-semibold flex'>
                       {item.price}
@@ -109,10 +162,10 @@ const Cart = () => {
         )}
         {data && data.length > 0 && (
           <div className='mt-4 w-full flex items-center justify-end'>
-            <div className='p-4 bg-zinc-800 rounded-lg'>
+            <div className='p-7 bg-zinc-800 rounded-lg'>
               <h1 className='text-3xl text-zinc-400'>Total Amount</h1>
-              <div className='mt-3 fleex items-center justify-between text-xl text-zinc-200'>
-                <h2>{data.length} Books</h2>
+              <div className='mt-3 flex flex-col justify-between text-xl text-zinc-200 gap-3'>
+                <h2>Books: {totalBooks}</h2>
                 <h2>Total: {total}</h2>
               </div>
               <div className='w-[100%] mt-3'>

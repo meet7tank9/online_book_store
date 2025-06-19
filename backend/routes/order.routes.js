@@ -13,14 +13,15 @@ router.post("/place-order", authenticationToken, async (req, res) => {
             const newOrderItem = await Order.create(
                 {
                     user: user_id,
-                    book: orderItem._id
+                    book: orderItem._id,
+                    quantity: orderItem.quantity
                 }
             )
 
             await User.findByIdAndUpdate(user_id, { $push: { orders: newOrderItem._id } })
             await User.findByIdAndUpdate(user_id, { $pull: { cart: orderItem._id } })
         }
-        
+
         return res.status(201).json({
             status: "success",
             message: "Order placed successful"

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Suspense } from 'react'
 import Loader from "../components/Loader/Loader"
-import BookCard from '../components/BookCard/BookCard'
+const BookCard = React.lazy(() => import('../components/BookCard/BookCard'))
 import axios from "axios"
 import { useLocation, useParams } from 'react-router-dom'
 import FilterByPrice from './FilterByPrice'
@@ -68,7 +68,7 @@ const AllBooks = () => {
 
       const books = data?.filter(book => book.category?.name == filterByCategory)
       setFilteredData(books)
-      
+
     }
     else {
       setFilteredData(data)
@@ -86,13 +86,15 @@ const AllBooks = () => {
       }
       <div className='my-8 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-8 text-yellow-100'>
         <FilterByPrice />
-        {
-          filteredData && filteredData.map((item, i) => {
-            return <div key={i}>
-              <BookCard data={item} />
-            </div>
-          })
-        }
+        <Suspense fallback={<div>Loading...</div>} >
+          {
+            filteredData && filteredData.map((item, i) => {
+              return <div key={i}>
+                <BookCard data={item} />
+              </div>
+            })
+          }
+        </Suspense>
       </div>
     </div>
   )

@@ -93,7 +93,7 @@ const AllOrders = () => {
             <div className='w-[22%]'>
               <h1 className='text-center'>Book Title</h1>
             </div>
-            <div className='w-[45%]'>
+            <div className='w-[25%]'>
               <h1 className='text-center'>Description</h1>
             </div>
             <div className='w-[9%]'>
@@ -104,6 +104,12 @@ const AllOrders = () => {
             </div>
             <div className='w-[5%]'>
               <h1 className='text-center'>Price</h1>
+            </div>
+            <div className='w-[5%]'>
+              <h1 className='text-center'>Quantity</h1>
+            </div>
+            <div className='w-[5%]'>
+              <h1 className='text-center'>Total</h1>
             </div>
           </div>
 
@@ -121,7 +127,7 @@ const AllOrders = () => {
                   <h1 className='text-center'>{item.book?.title}</h1>
                 </Link>
               </div>
-              <div className='w-[45%]'>
+              <div className='w-[25%]'>
                 <h1 className='text-center'>{item.book?.description?.slice(0, 20)}...</h1>
               </div>
               <div className='w-[9%]'>
@@ -141,6 +147,12 @@ const AllOrders = () => {
               </div>
               <div className='w-[5%]'>
                 <h1 className='text-center'>{item.book?.price}</h1>
+              </div>
+              <div className='w-[5%]'>
+                <h1 className='text-center'>{item.quantity ?? 1}</h1>
+              </div>
+              <div className='w-[5%]'>
+                <h1 className='text-center'>{item.book?.price * (item.quantity ?? 1)}</h1>
               </div>
             </div>
           })}

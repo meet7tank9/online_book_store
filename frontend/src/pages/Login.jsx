@@ -26,7 +26,7 @@ const Login = () => {
         const response = await axios.post(`http://localhost:3000/api/v1/user/login`, values)
 
         dispatch(authActions.login(true))
-        dispatch(authActions.login(response.data.data.role))
+        dispatch(authActions.changeRole(response.data.data.role))
 
         localStorage.setItem("id", response.data.data._id)
         localStorage.setItem("token", response.data.token)
