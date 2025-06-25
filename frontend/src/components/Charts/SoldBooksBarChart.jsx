@@ -1,21 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react'
+import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
-    LineElement,
     CategoryScale,
     LinearScale,
-    PointElement,
+    BarElement,
+    Title,
     Tooltip,
     Legend
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import axios from 'axios';
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
+const BarChart = () => {
 
-
-const LineChart = () => {
     const [orderData, setOrderData] = useState()
     const [chartData, setChartData] = useState()
     const headers = {
@@ -23,7 +29,8 @@ const LineChart = () => {
         order_id: orderData?._id,
         authorization: `Bearer ${localStorage.getItem("token")}`
     }
-    useEffect(() => {
+
+    useState(() => {
         const getOrders = async () => {
             try {
                 const response = await axios.get(`http://localhost:3000/api/v1/order/get-all-orders`, { headers })
@@ -39,23 +46,7 @@ const LineChart = () => {
                     return acc;
                 }, {})
 
-                const filteredData1 = orders.reduce((acc, item) => {
-                    const bookTitle = item.book?.title
-                    const quantity = Number(item.quantity ?? 1)
-
-                    const existed = acc.find((obj) => obj.bookTitle === bookTitle)
-                    if (!existed) {
-                        acc.push({ bookTitle, quantity })
-                    }
-                    else {
-                        existed.quantity += quantity
-                    }
-
-                    return acc;
-
-                }, [])
-
-                console.log(filteredData1);
+                // console.log(filteredData1);
 
                 const labels = Object.keys(filteredData)
                 const dataPoints = Object.values(filteredData)
@@ -64,10 +55,12 @@ const LineChart = () => {
                     labels: labels,
                     datasets: [
                         {
-                            label: 'Sales',
+                            label: 'Sales Report',
                             data: dataPoints,
-                            borderColor: 'rgba(75,192,192,1)',
-                            tension: 0.4,
+                            backgroundColor: '#EAB308',
+                            borderColor: '#EAB308',
+                            tension: 0.7,
+                            borderWidth: 1
                         },
                     ],
                 })
@@ -79,12 +72,24 @@ const LineChart = () => {
 
     }, [])
 
+    return (
+        <div className='w-full flex items-center justify-center'>
+            <div className='w-2/3 border border-zinc-500 rounded-xl p-3'>
+                {
+                    chartData &&
+                    <Bar
+                        data={chartData}
+                        options={{
+                            response: true, plugins: {
+                                legend: { position: 'top' },
+                                title: { display: true, text: 'Sold Books' }
+                            },
+                        }}
+                    />
+                }
+            </div>
+        </div>
+    )
+}
 
-    return <div className='rounded-xl shadow-md shadow-zinc-400'>
-        {
-            chartData && <Line key={JSON.stringify(chartData)} data={chartData} />
-        }
-    </div>
-};
-
-export default LineChart;
+export default BarChart

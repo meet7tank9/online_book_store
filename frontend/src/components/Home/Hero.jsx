@@ -18,7 +18,7 @@ const Hero = () => {
                 </div>
             </div>
             <div className='w-full lg:w-3/6 h-auto lg:h-[100%] flex items-center justify-center'>
-                <img src="./hero4.png" alt="hero" className='rounded-lg' />
+                <img src="./hero4.png" loading='lazy' decoding="async" alt="hero" className='rounded-lg' />
             </div>
         </div>
     )

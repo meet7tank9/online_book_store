@@ -21,7 +21,6 @@ const BookRating = () => {
       try {
 
         const ratingResponse = await axios.get(`http://localhost:3000/api/v1/rating/get-rating`, { headers })
-        // console.log(ratingResponse.data.data);
         setRatings(ratingResponse.data.data);
 
       } catch (error) {

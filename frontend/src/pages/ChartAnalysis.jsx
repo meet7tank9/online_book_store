@@ -1,10 +1,12 @@
 import React from 'react'
-import LineChart from '../components/Charts/LineChart'
+import RevenueLineChart from '../components/Charts/RevenueLineChart'
+import SoldBookBarChart from '../components/Charts/SoldBooksBarChart'
 
 const ChartAnalysis = () => {
     return (
-        <div>
-            <LineChart />
+        <div className='mx-10 my-3 flex flex-col gap-9 items-center justify-center'>
+            <SoldBookBarChart />
+            <RevenueLineChart />
         </div>
     )
 }

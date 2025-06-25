@@ -24,7 +24,6 @@ import Rating from './components/Profile/Rating'
 import BookRating from './components/BookRating/BookRating'
 import AddCategory from './pages/AddCategory'
 import AllCategory from './pages/AllCategory'
-import LineChart from './components/Charts/LineChart'
 import ChartAnalysis from './pages/ChartAnalysis'
 
 const App = () => {

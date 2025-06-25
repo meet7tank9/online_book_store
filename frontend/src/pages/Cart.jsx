@@ -129,7 +129,7 @@ const Cart = () => {
             {
               data.map((item, i) => (
                 <div className='w-full my-4 rounded flex flex-col md:flex-row p-2 bg-zinc-800 justify-around items-center' key={i}>
-                  <img src={item.url} alt="" className='h-[20vh] md:h-[10vh] object-cover' />
+                  <img src={item.url} alt="book image" loading='lazy' decoding="async" className='h-[20vh] md:h-[10vh] object-cover' />
 
                   <div className='w-full md:w-auto flex flex-col items-start justify-center'>
                     <h1 className='text-2xl text-zinc-300 font-semibold text-start mt-2 md:mt-8'>{item.title}</h1>

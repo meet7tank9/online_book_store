@@ -11,7 +11,7 @@ const Sidebar = ({ data }) => {
   const role = useSelector((state) => state.auth.role)
 
   return (
-    <div className='bg-zinc-800 rounded p-4 flex flex-col items-center justify-between h-auto lg:h-[90%]'>
+    <div className='bg-zinc-800 rounded p-4 flex flex-col items-center justify-between h-auto lg:h-[90%] sticky'>
       <div className='flex flex-col items-center justify-center'>
         <img src={data.avatar} alt="avatar" className='h-[10vh]' />
         <p className='text-zinc-200 font-semibold text-xl mt-3'>{data.username}</p>

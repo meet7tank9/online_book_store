@@ -18,6 +18,9 @@ app.use(express.json())
 app.use(cors({
     origin: "http://localhost:5173"
 }))
+const compression = require('compression');
+app.use(compression());
+
 
 app.use("/api/v1/user", user)
 app.use("/api/v1/book", book)
