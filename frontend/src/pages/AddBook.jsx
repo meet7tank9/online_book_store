@@ -14,7 +14,6 @@ const AddBook = () => {
   const [data, setData] = useState({
     title: "",
     author: "",
-    url: "",
     price: "",
     language: "",
     description: "",
@@ -39,19 +38,10 @@ const AddBook = () => {
   const handleSubmitBook = async (e) => {
     e.preventDefault()
 
-    setData(() => ({
-      title: "",
-      author: "",
-      url: "",
-      price: "",
-      language: "",
-      description: "",
-      category: ""
-    }))
     try {
       if (data.title == "" ||
         data.author == "" ||
-        data.url == "" ||
+        data.bookImage == "" ||
         data.price == "" ||
         data.language == "" ||
         data.description == ""
@@ -60,16 +50,33 @@ const AddBook = () => {
         return
       }
 
-      const response = await axios.post(`http://localhost:3000/api/v1/book/add-book`, data, { headers })
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("author", data.author);
+      formData.append("price", data.price);
+      formData.append("language", data.language);
+      formData.append("description", data.description);
+      formData.append("category", data.category);
+      formData.append("bookImage", data.bookImage);
+
+      const response = await axios.post(`http://localhost:3000/api/v1/book/add-book`, formData, { headers })
       alert(response.data.message);
+      setData(() => ({
+        title: "",
+        author: "",
+        price: "",
+        language: "",
+        description: "",
+        category: ""
+      }))
       navigate("/profile/add-book")
     } catch (error) {
       alert(error.response.data.message);
     }
   }
 
-  const handleOnClick = (e) => {
-    console.log(e);
+  const handleFileChange = (e) => {
+    setData({ ...data, bookImage: e.target.files[0] });
   }
 
   return (
@@ -97,8 +104,8 @@ const AddBook = () => {
             </select>
           </div>
           <div className='p-3'>
-            <label htmlFor="" className='text-zinc-400 text-lg ps-1'>Image url</label>
-            <input type="text" name="url" placeholder='Enter image url' value={data.url} id="" className='outline-none w-full mt-2 bg-zinc-900 text-zinc-100 p-2 rounded border border-gray-500' onChange={handleOnChange} />
+            <label htmlFor="" className='text-zinc-400 text-lg ps-1'>Select Book Image</label>
+            <input type="file" name="bookImage" className='outline-none w-full mt-2 bg-zinc-900 text-zinc-100 p-2 rounded border border-gray-500' onChange={handleFileChange} />
           </div>
           <div className='flex w-full'>
             <div className='p-3 w-1/2'>

@@ -2,11 +2,14 @@ const router = require("express").Router()
 const User = require("../models/user.js")
 const Book = require("../models/book.js")
 const { authenticationToken } = require("../middleware/authUser.middleware.js")
+const { upload } = require("../middleware/multer.middleware.js")
 
-router.post("/add-book", authenticationToken, async (req, res) => {
+const { uploadOnCloudinary } = require("../utils/cloudinary.utils.js")
+
+router.post("/add-book", authenticationToken, upload.single("bookImage"), async (req, res) => {
     try {
         const { id } = req.headers
-        const { title, url, author, price, language, description, category } = req.body
+        const { title, author, price, language, description, category } = req.body
 
         const user = await User.findById({ _id: id })
 
@@ -14,14 +17,22 @@ router.post("/add-book", authenticationToken, async (req, res) => {
 
             const bookExist = await Book.findOne({ title: title })
 
+            const bookImageLocalPath = req.file?.path.replace(/\\/g, '/');
+
+            if (!bookImageLocalPath) {
+                return res.status(400).json({ message: "Book image is required." })
+            }
+
             if (bookExist) {
                 return res.status(400).json({
                     message: "Book already exists."
                 })
             }
 
+            const bookImage = await uploadOnCloudinary(bookImageLocalPath)
+
             const newBook = await Book.create({
-                title, url, author, price, language, description, category
+                title, url: bookImage?.url || "", author, price, language, description, category
             })
 
             const book = await Book.findById({ _id: newBook._id })

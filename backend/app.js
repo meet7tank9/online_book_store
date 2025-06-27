@@ -20,7 +20,7 @@ app.use(cors({
 }))
 const compression = require('compression');
 app.use(compression());
-
+app.use(express.static("public"))
 
 app.use("/api/v1/user", user)
 app.use("/api/v1/book", book)
