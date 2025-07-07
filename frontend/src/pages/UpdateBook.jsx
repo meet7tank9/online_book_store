@@ -21,7 +21,7 @@ const UpdateBook = () => {
   useEffect(() => {
     const getCategory = async () => {
 
-      const responseCategory = await axios.get(`http://localhost:3000/api/v1/category/get-category`)
+      const responseCategory = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/category/get-category`)
       setCategory(responseCategory.data.data);
     }
 
@@ -41,7 +41,7 @@ const UpdateBook = () => {
   useEffect(() => {
     const getDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/book/get-book-by-id/${id}`)
+        const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/book/get-book-by-id/${id}`)
 
         setData({
           title: response.data.data.title,
@@ -63,7 +63,7 @@ const UpdateBook = () => {
   const handleUpdateBook = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.put(`http://localhost:3000/api/v1/book/update-book`, data, { headers })
+      const response = await axios.put(`${import.meta.env.VITE_REACT_BASE_URL}/book/update-book`, data, { headers })
 
       alert(response.data.message)
 

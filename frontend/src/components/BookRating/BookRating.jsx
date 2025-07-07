@@ -20,7 +20,7 @@ const BookRating = () => {
     const getBooks = async () => {
       try {
 
-        const ratingResponse = await axios.get(`http://localhost:3000/api/v1/rating/get-rating`, { headers })
+        const ratingResponse = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/rating/get-rating`, { headers })
         setRatings(ratingResponse.data.data);
 
       } catch (error) {

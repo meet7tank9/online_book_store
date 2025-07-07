@@ -18,7 +18,7 @@ const Cart = () => {
   useEffect(() => {
     const getCart = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/cart/get-cart`, { headers })
+        const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/cart/get-cart`, { headers })
         const dataArray = response.data.data
         const dataAfterQuantityAdded = dataArray.map((item) => {
           return { ...item, quantity: 1 }
@@ -54,10 +54,10 @@ const Cart = () => {
 
   const deleteItem = async (book_id) => {
     try {
-      const response = await axios.put(`http://localhost:3000/api/v1/cart/remove-from-cart/${book_id}`, {}, { headers })
+      const response = await axios.put(`${import.meta.env.VITE_REACT_BASE_URL}/cart/remove-from-cart/${book_id}`, {}, { headers })
       // console.log(response.data.data);
       alert(response.data.message);
-      const response2 = await axios.get(`http://localhost:3000/api/v1/cart/get-cart`, { headers })
+      const response2 = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/cart/get-cart`, { headers })
       // console.log(response2);
       setData(response2.data.data);
     } catch (error) {
@@ -67,7 +67,7 @@ const Cart = () => {
 
   const placeOrder = async () => {
     try {
-      const response = await axios.post(`http://localhost:3000/api/v1/order/place-order`, { order: data }, { headers })
+      const response = await axios.post(`${import.meta.env.VITE_REACT_BASE_URL}/order/place-order`, { order: data }, { headers })
       alert(response.data.message)
       navigate('/profile/order-history')
     } catch (error) {

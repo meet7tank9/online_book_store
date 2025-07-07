@@ -9,7 +9,7 @@ const RecentlyAdded = () => {
   useEffect(() => {
     const getBooks = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/book/get-recent-books`)
+        const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/book/get-recent-books`)
         setData(response.data.data);
 
         console.log(response.data.data);

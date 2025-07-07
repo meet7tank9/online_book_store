@@ -10,7 +10,7 @@ const FilterByCategory = () => {
     useEffect(() => {
         const getCategory = async () => {
 
-            const responseCategory = await axios.get(`http://localhost:3000/api/v1/category/get-category`)
+            const responseCategory = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/category/get-category`)
             setCategory(responseCategory.data.data);
 
         }

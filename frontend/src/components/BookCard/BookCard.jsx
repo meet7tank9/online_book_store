@@ -14,7 +14,7 @@ const BookCard = ({ data, favourite }) => {
 
   const handleRemoveFromFavourite = async () => {
     try {
-      const response = await axios.put(`http://localhost:3000/api/v1/favourite/remove-from-favourite`, {}, { headers })
+      const response = await axios.put(`${import.meta.env.VITE_REACT_BASE_URL}/favourite/remove-from-favourite`, {}, { headers })
       if (response.status == 200) {
         alert(response.data.message)
       }

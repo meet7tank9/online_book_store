@@ -18,7 +18,7 @@ const AllBooks = () => {
   useEffect(() => {
     const getBooks = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/book/get-books`)
+        const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/book/get-books`)
         console.log(response.data.data);
         setData(response.data.data);
         setFilteredData(response.data.data);

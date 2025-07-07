@@ -29,10 +29,10 @@ const ViewBookDetails = () => {
         const getBooks = async () => {
             try {
 
-                const response = await axios.get(`http://localhost:3000/api/v1/book/get-book-by-id/${id}`)
+                const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/book/get-book-by-id/${id}`)
                 setData(response.data.data);
 
-                const ratingResponse = await axios.get(`http://localhost:3000/api/v1/rating/get-rating`, { headers })
+                const ratingResponse = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/rating/get-rating`, { headers })
                 setRatings(ratingResponse.data.data);
 
             } catch (error) {
@@ -55,7 +55,7 @@ const ViewBookDetails = () => {
 
     const handleFavourite = async () => {
         try {
-            const response = await axios.put(`http://localhost:3000/api/v1/favourite/add-to-favourite`, {}, { headers })
+            const response = await axios.put(`${import.meta.env.VITE_REACT_BASE_URL}/favourite/add-to-favourite`, {}, { headers })
             if (response.status == 200) {
                 alert(response.data.message)
             }
@@ -68,7 +68,7 @@ const ViewBookDetails = () => {
 
     const handleAddToCart = async () => {
         try {
-            const response = await axios.put(`http://localhost:3000/api/v1/cart/add-to-cart`, {}, { headers })
+            const response = await axios.put(`${import.meta.env.VITE_REACT_BASE_URL}/cart/add-to-cart`, {}, { headers })
             if (response.status == 200) {
                 alert(response.data.message)
             }
@@ -83,7 +83,7 @@ const ViewBookDetails = () => {
         try {
             const ans = confirm("Are you sure you want to delete this book.")
             if (ans) {
-                const response = await axios.delete(`http://localhost:3000/api/v1/book/delete-book`, { headers })
+                const response = await axios.delete(`${import.meta.env.VITE_REACT_BASE_URL}/book/delete-book`, { headers })
 
                 alert(response.data.message)
                 navigate("/all-books")

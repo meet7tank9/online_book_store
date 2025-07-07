@@ -20,7 +20,7 @@ const ForgotPassword = () => {
         alert("Please enter registered email.")
       }
       else {
-        const response = await axios.post(`http://localhost:3000/api/v1/user/forgot-password`, values)
+        const response = await axios.post(`${import.meta.env.VITE_REACT_BASE_URL}/user/forgot-password`, values)
         if (response.status == 400) {
           alert(response.data.message)
         }

@@ -40,7 +40,7 @@ const ResetPassword = () => {
         alert("New password and confirm password should be same.")
       }
       else {
-        const response = await axios.post(`http://localhost:3000/api/v1/user/reset-password`, values)
+        const response = await axios.post(`${import.meta.env.VITE_REACT_BASE_URL}/user/reset-password`, values)
         if (response.status == 400) {
           alert(response.data.message)
         }

@@ -14,7 +14,7 @@ const AllUsers = () => {
     useEffect(() => {
         const getUserData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/v1/user/get-users`, { headers })
+                const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/user/get-users`, { headers })
                 console.log(response.data.data);
                 setUserData(response.data.data)
             } catch (error) {

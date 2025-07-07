@@ -16,7 +16,7 @@ const AllOrders = () => {
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/order/get-all-orders`, { headers })
+        const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/order/get-all-orders`, { headers })
 
         setOrderData(response.data.data)
         setFilteredData(response.data.data)
@@ -34,10 +34,10 @@ const AllOrders = () => {
       console.log(order_id);
 
       setTimeout(async () => {
-        const response = await axios.put(`http://localhost:3000/api/v1/order/update-status/${order_id}`, { status: event.target.value }, { headers })
+        const response = await axios.put(`${import.meta.env.VITE_REACT_BASE_URL}/order/update-status/${order_id}`, { status: event.target.value }, { headers })
 
         if (response.status == 200) {
-          const response = await axios.get(`http://localhost:3000/api/v1/order/get-all-orders`, { headers })
+          const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/order/get-all-orders`, { headers })
           setFilteredData(response.data.data)
         }
       }, 300)

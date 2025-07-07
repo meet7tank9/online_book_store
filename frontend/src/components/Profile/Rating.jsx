@@ -21,9 +21,9 @@ const RatingComponent = () => {
     useEffect(() => {
         const getBookName = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/v1/book/get-book-by-id/${id}`)
+                const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/book/get-book-by-id/${id}`)
 
-                const customer = await axios.get(`http://localhost:3000/api/v1/user/user-info`, { headers })
+                const customer = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/user/user-info`, { headers })
                 setCustomer(customer.data?.data?.username)
                 setBookName(response.data?.data?.title);
             } catch (error) {
@@ -47,7 +47,7 @@ const RatingComponent = () => {
             message: ratingMessage,
         }
         try {
-            const response = await axios.post(`http://localhost:3000/api/v1/rating/add-rating`, data, { headers })
+            const response = await axios.post(`${import.meta.env.VITE_REACT_BASE_URL}/rating/add-rating`, data, { headers })
 
             navigate("/profile/order-history")
         } catch (error) {

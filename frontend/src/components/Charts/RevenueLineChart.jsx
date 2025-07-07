@@ -30,7 +30,7 @@ const LineChart = () => {
                     authorization: `Bearer ${localStorage.getItem("token")}`
                 }
 
-                const response = await axios.get(`http://localhost:3000/api/v1/order/get-all-orders`, { headers })
+                const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/order/get-all-orders`, { headers })
 
                 const orders = response.data?.data;
 

@@ -22,7 +22,7 @@ const SignUp = () => {
         alert("All fields are required.")
       }
       else {
-        const response = await axios.post(`http://localhost:3000/api/v1/user/register`, values)
+        const response = await axios.post(`${import.meta.env.VITE_REACT_BASE_URL}/user/register`, values)
         navigate("/login")
       }
     } catch (error) {

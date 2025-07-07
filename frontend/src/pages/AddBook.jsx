@@ -27,7 +27,7 @@ const AddBook = () => {
   useEffect(() => {
     const getCategory = async () => {
 
-      const responseCategory = await axios.get(`http://localhost:3000/api/v1/category/get-category`)
+      const responseCategory = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/category/get-category`)
       setCategory(responseCategory.data.data);
 
     }
@@ -59,7 +59,7 @@ const AddBook = () => {
       formData.append("category", data.category);
       formData.append("bookImage", data.bookImage);
 
-      const response = await axios.post(`http://localhost:3000/api/v1/book/add-book`, formData, { headers })
+      const response = await axios.post(`${import.meta.env.VITE_REACT_BASE_URL}/book/add-book`, formData, { headers })
       alert(response.data.message);
       setData(() => ({
         title: "",

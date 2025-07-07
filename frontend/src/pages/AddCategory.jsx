@@ -23,7 +23,7 @@ const AddCategory = () => {
     useEffect(() => {
         const getCategory = async () => {
 
-            const responseCategory = await axios.get(`http://localhost:3000/api/v1/category/get-category`)
+            const responseCategory = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/category/get-category`)
             setCategory(responseCategory.data.data);
 
         }
@@ -45,10 +45,10 @@ const AddCategory = () => {
                 return
             }
 
-            const response = await axios.post(`http://localhost:3000/api/v1/category/add-category`, data, { headers })
+            const response = await axios.post(`${import.meta.env.VITE_REACT_BASE_URL}/category/add-category`, data, { headers })
             alert(response.data.message);
 
-            const responseCategory = await axios.get(`http://localhost:3000/api/v1/category/get-category`)
+            const responseCategory = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/category/get-category`)
             setCategory(responseCategory.data.data);
 
             navigate("/profile/add-category")
@@ -63,9 +63,9 @@ const AddCategory = () => {
         const result = confirm(`Are you sure you want to delete '${name}' category`)
         try {
             if (!result) { return }
-            const responseCategory = await axios.delete(`http://localhost:3000/api/v1/category/delete-category`, { headers, data: { name } })
+            const responseCategory = await axios.delete(`${import.meta.env.VITE_REACT_BASE_URL}/category/delete-category`, { headers, data: { name } })
 
-            const responseCat = await axios.get(`http://localhost:3000/api/v1/category/get-category`)
+            const responseCat = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/category/get-category`)
             setCategory(responseCat.data.data);
 
             alert(responseCategory.data.message)

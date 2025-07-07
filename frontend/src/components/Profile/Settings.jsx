@@ -17,7 +17,7 @@ const Settings = () => {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/user/user-info`, { headers })
+        const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/user/user-info`, { headers })
 
         setProfileData(response.data.data);
         setValue({ address: response.data.data.address })
@@ -30,7 +30,7 @@ const Settings = () => {
 
   const handleOnSubmit = async () => {
     try {
-      const response = await axios.put(`http://localhost:3000/api/v1/user/update-address`, value, { headers })
+      const response = await axios.put(`${import.meta.env.VITE_REACT_BASE_URL}/user/update-address`, value, { headers })
       
       alert(response.data.message);
     } catch (error) {

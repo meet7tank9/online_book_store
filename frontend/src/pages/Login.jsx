@@ -23,7 +23,7 @@ const Login = () => {
         alert("All fields are required.")
       }
       else {
-        const response = await axios.post(`http://localhost:3000/api/v1/user/login`, values)
+        const response = await axios.post(`${import.meta.env.VITE_REACT_BASE_URL}/user/login`, values)
 
         dispatch(authActions.login(true))
         dispatch(authActions.changeRole(response.data.data.role))

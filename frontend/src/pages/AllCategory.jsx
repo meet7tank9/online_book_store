@@ -10,10 +10,10 @@ const AllCategory = () => {
     useEffect(() => {
         const getCategory = async () => {
 
-            const responseCategory = await axios.get(`http://localhost:3000/api/v1/category/get-category`)
+            const responseCategory = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/category/get-category`)
             setCategory(responseCategory.data.data);
 
-            const response = await axios.get(`http://localhost:3000/api/v1/book/get-books`)
+            const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/book/get-books`)
             console.log(response.data.data);
             setData(response.data.data);
 
