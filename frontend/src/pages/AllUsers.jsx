@@ -15,7 +15,7 @@ const AllUsers = () => {
         const getUserData = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/user/get-users`, { headers })
-                console.log(response.data.data);
+                // console.log(response.data.data);
                 setUserData(response.data.data)
             } catch (error) {
                 console.log(error);

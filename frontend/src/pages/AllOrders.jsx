@@ -31,7 +31,7 @@ const AllOrders = () => {
     try {
       // get order id from the index of the item
       const order_id = filteredData[i]._id
-      console.log(order_id);
+      // console.log(order_id);
 
       setTimeout(async () => {
         const response = await axios.put(`${import.meta.env.VITE_REACT_BASE_URL}/order/update-status/${order_id}`, { status: event.target.value }, { headers })

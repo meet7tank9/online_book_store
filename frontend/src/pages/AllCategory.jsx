@@ -14,7 +14,7 @@ const AllCategory = () => {
             setCategory(responseCategory.data.data);
 
             const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/book/get-books`)
-            console.log(response.data.data);
+            // console.log(response.data.data);
             setData(response.data.data);
 
             

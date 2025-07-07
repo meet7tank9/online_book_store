@@ -12,7 +12,7 @@ const RecentlyAdded = () => {
         const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/book/get-recent-books`)
         setData(response.data.data);
 
-        console.log(response.data.data);
+        // console.log(response.data.data);
       } catch (error) {
         console.log(error);
       }

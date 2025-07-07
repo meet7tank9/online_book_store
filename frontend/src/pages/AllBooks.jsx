@@ -19,7 +19,7 @@ const AllBooks = () => {
     const getBooks = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_REACT_BASE_URL}/book/get-books`)
-        console.log(response.data.data);
+        // console.log(response.data.data);
         setData(response.data.data);
         setFilteredData(response.data.data);
       } catch (error) {
