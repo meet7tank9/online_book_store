@@ -16,7 +16,7 @@ const app = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors({
-    origin: "http://localhost:5173"
+    origin: ["http://localhost:5173", "https://book-heaven-online-book-store.vercel.app"]
 }))
 const compression = require('compression');
 app.use(compression());
