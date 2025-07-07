@@ -3,8 +3,10 @@ const User = require("../models/user.js")
 const Book = require("../models/book.js")
 const { authenticationToken } = require("../middleware/authUser.middleware.js")
 const { upload } = require("../middleware/multer.middleware.js")
+const fs = require("fs")
 
 const { uploadOnCloudinary } = require("../utils/cloudinary.utils.js")
+// const { uploadImage } = require("../utils/uploadImage.js")
 
 router.post("/add-book", authenticationToken, upload.single("bookImage"), async (req, res) => {
     try {
@@ -16,9 +18,21 @@ router.post("/add-book", authenticationToken, upload.single("bookImage"), async 
         if (user.role === "admin") {
 
             const bookExist = await Book.findOne({ title: title })
-
+            // console.log(req.file?.path);
+            // if (req.file) {
+            //     return res.status(400).json({
+            //         message: "Only JPG, PNG or JPEG files are allowed."
+            //     })
+            // }
             const bookImageLocalPath = req.file?.path.replace(/\\/g, '/');
 
+            const bookArray = bookImageLocalPath.split(".")
+            const extension = bookArray[bookArray.length - 1]
+            if (!["jpg", "jpeg", "png"].includes(extension)) {
+                fs.unlinkSync(bookImageLocalPath)
+                return res.status(400).json({ message: "Book image must be in (JPG, JPEG, PNG) format." })
+            }
+            // console.log(bookImageLocalPath);
             if (!bookImageLocalPath) {
                 return res.status(400).json({ message: "Book image is required." })
             }
@@ -54,7 +68,6 @@ router.post("/add-book", authenticationToken, upload.single("bookImage"), async 
         }
 
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             message: "server error while adding new book"
         })
