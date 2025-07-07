@@ -16,7 +16,7 @@ const app = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors({
-    origin: ["http://localhost:5173", "https://bookheavenbookstore.netlify.app"]
+    origin: ["http://localhost:5173", "https://bookheavenbookstore.netlify.app", "https://online-book-store-frontend-lyart.vercel.app"]
 }))
 const compression = require('compression');
 app.use(compression());
